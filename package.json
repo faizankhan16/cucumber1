@@ -1,0 +1,28 @@
+{
+  "name": "cucumber1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faizankhan16/cucumber1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^9.6.1"
+  },
+  "bugs": {
+    "url": "https://github.com/faizankhan16/cucumber1/issues"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true
+  },
+  "homepage": "https://github.com/faizankhan16/cucumber1#readme",
+  "devDependencies": {
+    "cypress-cucumber-preprocessor": "^4.3.1"
+  }
+}
