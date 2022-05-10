@@ -6,7 +6,7 @@ import selectors from "../../fixtures/selectors.json"
 const login = new signIn()
 const logout = new signOut()
 
-// describe('Samtrygg login with valid credentials', () => {
+describe('Samtrygg login with valid credentials', () => {
     Given('I am on the login page', () => {
         cy.visit('/')
         cy.get(selectors.language).click()
@@ -20,14 +20,34 @@ const logout = new signOut()
         })
     })
 
-    //Click teh login button
     And('I click the login button', () => {
         cy.get(selectors.submitButton).click({force: true})
     })
 
-    //The user cannot login without providing credentials
     Then('I should be logged in', () => {
         cy.get('div[class="dash-content col medium-12 small-12"] a').should('contain', 'Choose time slots for viewings of your home')
+    })
+})
+
+describe('Samtrygg login with invalid credentials', () => {
+    Given('I am on the login page', () => {
+        cy.visit('/')
+        cy.get(selectors.language).click()
+        cy.contains(/sign.in/i).click({force: true})
+    })
+
+    When('I enter my', (datatable) => {
+        datatable.hashes().forEach(element => {
+            login.signIn(element.email, element.password)
+        })
+    })
+
+    And('I click the login button', () => {
+        cy.get(selectors.submitButton).click({force: true})
+    })
+
+    Then('I should not be logged in', () => {
+        cy.get('div[class="alert-box info"] span[class="RED"]').should('contain', 'The e-mail or password you filled in is incorrect')
     })
 
 //     //Verify Forgot Password functionality
@@ -58,5 +78,5 @@ const logout = new signOut()
 //     login.signIn(email, newPassword)
 //    })
 
-// })
+})
 
