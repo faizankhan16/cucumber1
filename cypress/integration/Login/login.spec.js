@@ -6,7 +6,7 @@ import selectors from "../../fixtures/selectors.json"
 const login = new signIn()
 const logout = new signOut()
 
-describe('Samtrygg login with valid credentials', () => {
+// describe('Samtrygg login with valid credentials', () => {
     Given('I am on the login page', () => {
         cy.visit('/')
         cy.get(selectors.language).click()
@@ -27,14 +27,9 @@ describe('Samtrygg login with valid credentials', () => {
     Then('I should be logged in', () => {
         cy.get('div[class="dash-content col medium-12 small-12"] a').should('contain', 'Choose time slots for viewings of your home')
     })
-})
+// })
 
-describe('Samtrygg login with invalid credentials', () => {
-    Given('I am on the login page', () => {
-        cy.visit('/')
-        cy.get(selectors.language).click()
-        cy.contains(/sign.in/i).click({force: true})
-    })
+// describe('Samtrygg login with invalid credentials', () => {
 
     When('I enter my', (datatable) => {
         datatable.hashes().forEach(element => {
@@ -78,5 +73,5 @@ describe('Samtrygg login with invalid credentials', () => {
 //     login.signIn(email, newPassword)
 //    })
 
-})
+// })
 
