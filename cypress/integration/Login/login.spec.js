@@ -42,7 +42,33 @@ const logout = new signOut()
     })
 
     Then('I should not be logged in', () => {
-        cy.get('div[class="alert-box info"] span[class="RED"]').should('contain', 'The e-mail or password you filled in is incorrect')
+        cy.get(selectors.incorrectLoginHeader).should('contain', 'The e-mail or password you filled in is incorrect')
+    })
+
+
+    When('I do not enter my credentials and I click the login button', () => {
+        cy.get(selectors.submitButton).click({force: true})
+    })
+
+    Then('I should not be logged in', () => {
+        cy.get(selectors.incorrectLoginHeader).should('contain', 'The e-mail or password you filled in is incorrect')
+    })
+
+    When('I click the forgot password link', () => {
+        cy.get(selectors.forgotPass).should('contain', 'Forgot your password?').click()
+    })
+
+    Then('I should be on the forgot password page', () => {
+        cy.get(selectors.forgotPassHeader).should('contain', 'Forgot password')
+    })
+
+
+    When('I click the remember me checkbox', () => {
+        login.signInRememberMe(email, newPassword)
+    })
+
+    Then('I should be logged in', () => {
+        cy.get('div[class="dash-content col medium-12 small-12"] a').should('contain', 'Choose time slots for viewings of your home')
     })
 
 //     //Verify Forgot Password functionality

@@ -18,20 +18,20 @@ Feature: Login
         And I click the login button
         Then I should not be logged in
 
-    # Scenario: Samtrygg login with empty credentials
-    #     Given I am on the login page
-    #     When I don't enter my credentials and I click the login button
-    #     Then I should not be logged in
+    Scenario: Samtrygg login with empty credentials
+        Given I am on the login page
+        When I do not enter my credentials and I click the login button
+        Then I should not be logged in
 
-    # Scenario: The forgot password functionality
-    #     Given I am on the login page
-    #     When I click the forgot password link
-    #     Then I should be on the forgot password page
+    Scenario: The forgot password functionality
+        Given I am on the login page
+        When I click the forgot password link
+        Then I should be on the forgot password page
 
-    # Scenario: The remember me checkbox
-    #     Given I am on the login page   
-    #     When I click the remember me checkbox
-    #     Then I should be logged in
+    Scenario: The remember me checkbox
+        Given I am on the login page   
+        When I click the remember me checkbox
+        Then I should be logged in
 
     # Scenario: Samtrygg login with the enter button
     #     Given I am on the login page
