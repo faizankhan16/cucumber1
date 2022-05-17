@@ -48,7 +48,7 @@
     "oldPassword": "#OldPass",
     "newPassword": "#Pass",
     "confirmNewPass": "#ConfirmPass",
-    "saveNewPass": "input[onclick='return ValidatePasswords();'']",
+    "saveNewPass": "input[onclick='return ValidatePasswords();']",
     "incorrectLoginHeader": "div[class='alert-box info'] span[class='RED']",
     "viewBooking": {
         "homePage": "img[alt='Landing image']",

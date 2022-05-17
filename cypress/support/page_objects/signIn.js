@@ -39,7 +39,7 @@ signInViaEnter(email, pass) {
 
     //Password
     cy.get(selectors.password).type(pass)
-    cy.get(selectors.password).should('have.value', pass).type('{enter}')
+    cy.get(selectors.password).should('have.value', pass)
 
 }
 signInRememberMe(email, pass) {

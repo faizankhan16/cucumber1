@@ -5,6 +5,7 @@ import credential from "../../fixtures/credential.json"
 import selectors from "../../fixtures/selectors.json"
 const login = new signIn()
 const logout = new signOut()
+const chPass = new changePassword()
 
 // describe('Samtrygg login with valid credentials', () => {
     Given('I am on the login page', () => {
@@ -27,9 +28,6 @@ const logout = new signOut()
     Then('I should be logged in', () => {
         cy.get('div[class="dash-content col medium-12 small-12"] a').should('contain', 'Choose time slots for viewings of your home')
     })
-// })
-
-// describe('Samtrygg login with invalid credentials', () => {
 
     When('I enter my', (datatable) => {
         datatable.hashes().forEach(element => {
@@ -62,42 +60,76 @@ const logout = new signOut()
         cy.get(selectors.forgotPassHeader).should('contain', 'Forgot password')
     })
 
+    When('I enter my', (datatable) => {
+        datatable.hashes().forEach(element => {
+            login.signIn(element.email, element.password)
+        })
+    })
 
-    When('I click the remember me checkbox', () => {
-        login.signInRememberMe(email, newPassword)
+    And('I click the remember me checkbox', () => {
+        cy.get(selectors.rememberMe).check({force: true}).should('be.checked')
+        cy.get(selectors.submitButton).click({force: true})
     })
 
     Then('I should be logged in', () => {
         cy.get('div[class="dash-content col medium-12 small-12"] a').should('contain', 'Choose time slots for viewings of your home')
     })
 
-//     //Verify Forgot Password functionality
-//     it('Verify the forgot password functionality', () => {
-//         cy.get(selectors.forgotPass).should('contain', 'Forgot your password?').click()
-//         cy.get(selectors.forgotPassHeader).should('contain', 'Forgot password')
-//     })
 
-//     //Remember me feature
-//     it('Verify if a user can select the remember me checkbox', () => {
-//         login.signInRememberMe(email, newPassword)
-//         logout.signOut()
-//    })
+    When('I enter my', (datatable) => {
+        datatable.hashes().forEach(element => {
+            login.signIn(element.email, element.password)
+        })
+    })
 
-//    //Checking the enter button
-//    it('Verify a the user can login by pressing the enter button', () => {
-//     login.signInViaEnter(email, newPassword)
-//     logout.signOut()
-//    })
+    And('I press the enter button', () => {
+        cy.get(selectors.password).type('{enter}')
+    })
 
-//    //User can only login with a new password only after it has been changed
-//    it('Verify if a user is able to login with a new password only after it has been changed', () => {
-//     login.signIn(email, newPassword)
-//     cy.get(selectors.validationMessage).should('contain', 'The e-mail or password you filled in is incorrect')
-//     login.signIn(email, oldPassword)
-//     chPass.changePass(oldPassword, newPassword, newPassword)
-//     logout.signOut()
-//     login.signIn(email, newPassword)
-//    })
+    Then('I should be logged in', () => {
+        cy.get('div[class="dash-content col medium-12 small-12"] a').should('contain', 'Choose time slots for viewings of your home')
+    })
 
-// })
+    When('I enter my', (datatable) =>{
+        datatable.hashes().forEach(element => {
+            Login.signIn(element.email, element.password)
+        })
+    })
 
+    And('I click the login button', () => {
+        cy.get(selectors.submitButton).click({force: true})
+    })
+
+    Then('I should not be logged in', () => {
+        cy.get(selectors.incorrectLoginHeader).should('contain', 'The e-mail or password you filled in is incorrect')
+    })
+
+    When('I enter my', (datatable) =>{
+        datatable.hashes().forEach(element => {
+            Login.signIn(element.email, element.password)
+        })
+    })
+
+    And('I click the login button', () => {
+        cy.get(selectors.submitButton).click({force: true})
+    })
+
+    And('I change the password', (datatable) => {
+        datatable.hashes().forEach(element => {
+        chPass.changePass(element.oldpassword, element.newpassword)
+    })
+})
+
+    And('I log out', () => {
+        logout.signOut()
+    })
+
+    And('I login with the', (datatable) => {
+        datatable.hashes().forEach(element => {
+        login.signIn(element.email, element.newpassword)
+    })
+})
+
+    Then('I should be logged in', () => {
+    cy.get('div[class="dash-content col medium-12 small-12"] a').should('contain', 'Choose time slots for viewings of your home')
+})
